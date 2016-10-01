@@ -16,11 +16,13 @@ void verifica_carros(_veiculo *carros, int *n){
 
 }
 
-int prencher_matriz(_veiculo *carros){
-  int matriz[5][5], i = 2, j = 0;
-  for (i = 0; i <= 5; i++){
-    for (j = 0; j <= 5; i++){
-      
-    }
+int prencher_matriz(_veiculo *carros, int *n){
+  int matriz[7][7], i = 0, j = 0, aux = 1, aux2 = 0, aux3 = 0;
+
+  for (aux = 1; aux <= *n; aux++){
+    i = atoi(carros[aux].inicio_x);
+    j = atoi(carros[aux].inicio_y);
+    matriz[i][j] = 33;
   }
+  return 0;
 }

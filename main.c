@@ -51,7 +51,7 @@ int main (){
   fclose(IN_carros);
   /*---------------------------------------------------------------------*/
   verifica_carros(&carros, &n);
-  prencher_matriz(&carros);
+  prencher_matriz(&carros, &n);
 
   return 0;
 }

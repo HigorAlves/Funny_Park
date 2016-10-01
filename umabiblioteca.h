@@ -22,6 +22,6 @@ typedef struct veiculo{ //estrutura para definir onde cada carro começa
 
 /*----------------------------*/
 void verifica_carros(_veiculo *carros, int *n);
-int prencher_matriz(_veiculo *carros);
+int prencher_matriz(_veiculo *carros, int *n);
 
 #endif
