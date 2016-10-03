@@ -8,12 +8,13 @@ void verifica_carros(_veiculo *carros, int *n){
       /* Verifica se tem dois carros com o mesmo nome */
       if (strcmp (carros[i].nome, carros[j].nome) == 0){
         if (i != j){
+
           printf("Dois carros com mesmo nome!\n");
-          return 1;
-=======
+          //exit;
+
           printf("Dois carros com mesmo valor verifique o seu arquivo!\n");
-          exit;
->>>>>>> Stashed changes
+          //exit;
+
         }
       }
     }

@@ -1,12 +1,12 @@
 /* Todas as declarações sobre bibliotecas foram feitas no arquivo umabiblioteca.h */
 #include "umabiblioteca.h"
-#include "heuristica.h"
 /*------------------------*/
 
 
 int main (){
   char word [2]; //Somente para guardar o lixo do arquivo
   int i = 1, n = 0, aux = 0;
+    
   /*---------------------------LEITURA ARQUIVO-------------------------*/
   /* Abrimos o arquivo e verificamos se realmente conseguimos abri-lo */
   FILE *IN_carros = fopen ("/Users/lidimarsantos/Documents/faculdade/AEDS 3/tp2/tp2/Funny_Park_inc/carros.txt", "r");
@@ -51,8 +51,8 @@ int main (){
   }
   fclose(IN_carros);
   /*---------------------------------------------------------------------*/
-  verifica_carros(&carros, &n);
-  prencher_matriz(&carros, &n);
+  verifica_carros(carros, &n);
+  prencher_matriz(carros, &n);
 
   return 0;
 }
