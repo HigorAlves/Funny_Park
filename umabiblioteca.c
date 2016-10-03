@@ -10,10 +10,7 @@ void verifica_carros(_veiculo *carros, int *n){
         if (i != j){
 
           printf("Dois carros com mesmo nome!\n");
-          //exit;
-
-          printf("Dois carros com mesmo valor verifique o seu arquivo!\n");
-          //exit;
+          exit(1);
 
         }
       }
@@ -42,7 +39,6 @@ void verifica_carros(_veiculo *carros, int *n){
       }
     }
   }
-
 }
 
 int prencher_matriz(_veiculo *carros, int *n){

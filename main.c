@@ -4,7 +4,7 @@
 
 
 int main (){
-  char word [2]; //Somente para guardar o lixo do arquivo
+  char word [2], ch; //Somente para guardar o lixo do arquivo
   int i = 1, n = 0, aux = 0;
     
   /*---------------------------LEITURA ARQUIVO-------------------------*/
@@ -15,10 +15,14 @@ int main (){
     printf("Não foi possivel ler o arquivo de configuração dos carros\n");
     return 1;
   }
-
-  while ((fscanf (IN_carros, "%m[^"DELIMITER"]%*["DELIMITER"]", word)) != EOF){
-    n++;
+  
+  /*verifica quantos carros existem no arquivo*/
+  while ((ch=fgetc(IN_carros)) != EOF){
+      if (ch == '\n') {
+          n++;
+      }
   }
+    
   rewind(IN_carros);
 
   /* Declaramos a quantidade de carros */

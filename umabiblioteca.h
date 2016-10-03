@@ -8,9 +8,9 @@
 #include "heuristica.h"
 /*----------------------------*/
 
-#define DELIMITER "\n"
 
-typedef struct veiculo{ //estrutura para definir onde cada carro começa
+//estrutura para definir onde cada carro começa
+typedef struct veiculo{
   char nome [2];
   char tipo [2]; // 2 = carro, 3 = caminhão
   char paralelo[2];

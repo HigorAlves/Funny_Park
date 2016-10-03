@@ -1,6 +1,6 @@
 compile:
 	clear
-	gcc main.c umabiblioteca.c -O3 -w -o tp2
+	gcc main.c umabiblioteca.c heuristica.c -O3 -w -o tp2
 
 executa:
 	./tp2
