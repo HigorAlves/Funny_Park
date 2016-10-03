@@ -10,6 +10,10 @@ void verifica_carros(_veiculo *carros, int *n){
         if (i != j){
           printf("Dois carros com mesmo nome!\n");
           return 1;
+=======
+          printf("Dois carros com mesmo valor verifique o seu arquivo!\n");
+          exit;
+>>>>>>> Stashed changes
         }
       }
     }

@@ -1,5 +1,6 @@
 /* Todas as declarações sobre bibliotecas foram feitas no arquivo umabiblioteca.h */
 #include "umabiblioteca.h"
+#include "heuristica.h"
 /*------------------------*/
 
 
@@ -8,7 +9,7 @@ int main (){
   int i = 1, n = 0, aux = 0;
   /*---------------------------LEITURA ARQUIVO-------------------------*/
   /* Abrimos o arquivo e verificamos se realmente conseguimos abri-lo */
-  FILE *IN_carros = fopen ("carros.txt", "r");
+  FILE *IN_carros = fopen ("/Users/lidimarsantos/Documents/faculdade/AEDS 3/tp2/tp2/Funny_Park_inc/carros.txt", "r");
 
   if (IN_carros == NULL){
     printf("Não foi possivel ler o arquivo de configuração dos carros\n");
