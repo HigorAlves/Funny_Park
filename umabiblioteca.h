@@ -20,7 +20,7 @@ typedef struct veiculo{ //estrutura para definir onde cada carro começa
   int meio;
 } _veiculo;
 
-/*----------------------------*/
+/*-------------- FUNÇÕES USADAS --------------*/
 void verifica_carros(_veiculo *carros, int *n);
 int prencher_matriz(_veiculo *carros, int *n);
 
