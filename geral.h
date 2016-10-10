@@ -1,3 +1,9 @@
+/*-------------------------------------------*/
+/*             TRABALHO FEITO POR:           */
+/*            HIGOR HENRIQUE ALVES           */
+/*          LIDIMAR DOS SANTOS JUNIOR        */
+/*-------------------------------------------*/
+
 /*Bibliotoecas*/
 #include <sys/resource.h>
 #include <stdio.h>

@@ -1,3 +1,9 @@
+/*-------------------------------------------*/
+/*             TRABALHO FEITO POR:           */
+/*            HIGOR HENRIQUE ALVES           */
+/*          LIDIMAR DOS SANTOS JUNIOR        */
+/*-------------------------------------------*/
+
 #include "geral.h"
 
 posCar salva_carro[18]; //Salva o carro, eixo de inserção, cood x,y.
