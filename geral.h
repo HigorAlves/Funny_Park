@@ -38,22 +38,22 @@ typedef struct s_descritor{
 }descritor;
 
 #endif // ESTRUTURAS
-/*-------------------------*/
+/*--------------------------*/
 
 /*FUNÇÕES*/
-void pega_flag(int argc, char **argv, char parg[100], char earg[100], int *h, int *b, int *v);
-
-int verifyCar(char nome);
-void addCar(char nome, int id, char eixo, int x, int y);
-void insert_veiculo(char matriz[6][6],char nome, int id, char eixo, int x, int y);
-void zera_mat(char mat[6][6]);
-void rmCar_estac(char mat[6][6],int id);
-void mvCar_estac(char mat[6][6],int id, char axis, int mvt);
-int colider(char mat[6][6],int id, char axis, int moviment);
-int verificador(char *src_carros, char *src_movimento);
+void flag(int argc, char **argv, char parg[100], char earg[100], int *h, int *b, int *v);
 
 int heuristica(char input[100]);
 
-void zera_vet(int vet[], int tam, int valor);
-int geraPassoIt(char estac[6][6]);
+void zera_vetor(int vet[], int tam, int valor);
+int gera_passo(char estac[6][6]);
 void backtrack(char entrada[100]);
+
+int verifica_carro(char nome);
+void adiciona_carro(char nome, int id, char eixo, int x, int y);
+void inserir_veiculo(char matriz[6][6],char nome, int id, char eixo, int x, int y);
+void zerar_matriz(char mat[6][6]);
+void remove_veiculo_estac(char mat[6][6],int id);
+void move_carro_estac(char mat[6][6],int id, char axis, int mvt);
+int colisao(char mat[6][6],int id, char axis, int moviment);
+int verificador(char *src_carros, char *src_movimento);

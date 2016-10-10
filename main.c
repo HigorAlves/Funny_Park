@@ -8,7 +8,7 @@ int main(int argc, char **argv){
 
     posCar *aux = (posCar*)calloc(sizeof(posCar),1);
 
-    pega_flag(argc,argv,veiculo,movimnt,&h,&b,&v);
+    flag(argc,argv,veiculo,movimnt,&h,&b,&v);
 
     if(v == 1){
         qnt = 0;

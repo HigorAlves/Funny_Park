@@ -4,7 +4,7 @@ posCar saveCar[18]; //Salva o carro, eixo de inserção, cood x,y.
 int qnt = 0;
 int menor_sequencia = 541;
 
-void pega_flag(int argc, char **argv, char parg[100], char earg[100], int *h, int *b, int *v){
+void flag(int argc, char **argv, char parg[100], char earg[100], int *h, int *b, int *v){
     int verbose;
     opterr = 0;
 
@@ -40,8 +40,8 @@ void pega_flag(int argc, char **argv, char parg[100], char earg[100], int *h, in
     
 }
 
-/*-----VERIFICADORES------*/
-int verifyCar(char nome){
+/*-----VERIFICADORES-------*/
+int verifica_carro(char nome){
     /*Verificamos se o carro existe*/
     int i;
 
@@ -53,7 +53,7 @@ int verifyCar(char nome){
     return -1;
 }
 
-void addCar(char nome, int id, char eixo, int x, int y){
+void adiciona_carro(char nome, int id, char eixo, int x, int y){
     /*Adicionamos um carro na lista*/
     saveCar[qnt].id = id;
     saveCar[qnt].nome = nome;
@@ -63,13 +63,13 @@ void addCar(char nome, int id, char eixo, int x, int y){
     qnt++;
 }
 
-void insert_veiculo(char matriz[6][6],char nome, int id, char eixo, int x, int y){
+void inserir_veiculo(char matriz[6][6],char nome, int id, char eixo, int x, int y){
     /*Coloca o carro na matriz estacionamento*/
     x --;
     y = 6 - y;
     int A,B;
 
-    if(verifyCar(nome) != -1){
+    if(verifica_carro(nome) != -1){
         printf("O carro existe! (%c %d %c X%dY%d)\n",nome,id,eixo,x+1,6-y);
         return;
     }
@@ -118,10 +118,10 @@ void insert_veiculo(char matriz[6][6],char nome, int id, char eixo, int x, int y
         return;
     }
 
-    addCar(nome, id, eixo, x, y);
+    adiciona_carro(nome, id, eixo, x, y);
 }
 
-void zera_mat(char mat[6][6]){
+void zerar_matriz(char mat[6][6]){
     /* Zeramos a matriz inserindo valores padrões */
     int i,j;
     for(i=0; i<6; i++){
@@ -131,7 +131,7 @@ void zera_mat(char mat[6][6]){
     }
 }
 
-void rmCar_estac(char mat[6][6],int id){
+void remove_veiculo_estac(char mat[6][6],int id){
     /*Remover um carro do estacinamento*/
     int x = saveCar[id].x;
     int y = saveCar[id].y;
@@ -149,9 +149,9 @@ void rmCar_estac(char mat[6][6],int id){
     }
 }
 
-void mvCar_estac(char mat[6][6],int id, char axis, int mvt){
+void move_carro_estac(char mat[6][6],int id, char axis, int mvt){
     /*Remover o carro da matriz */
-    rmCar_estac(mat,id);
+    remove_veiculo_estac(mat,id);
     saveCar[id].x += (axis == 'X'? mvt:0);
     saveCar[id].y -= (axis == 'Y'? mvt:0);
 
@@ -174,7 +174,7 @@ void mvCar_estac(char mat[6][6],int id, char axis, int mvt){
     }
 }
 
-int colider(char mat[6][6],int id, char axis, int moviment){
+int colisao(char mat[6][6],int id, char axis, int moviment){
     /*Verifica se tem colisão com a parede*/
     int i;
     int a,b,c;
@@ -226,7 +226,7 @@ int verificador(char *src_carros, char *src_movimento){
     FILE *entrada = fopen(src_carros,"r"); //Arquivo do conjunto de carros
     FILE *movimnt= fopen(src_movimento,"r");//Arquivo do conjunto de movimento
     char estac[6][6]; //Matriz que simboliza o estacionamento
-    zera_mat(estac);
+    zerar_matriz(estac);
 
     if(entrada == NULL || movimnt == NULL){
         printf("Não foi possivel abrir os arquivos!\n");
@@ -235,19 +235,19 @@ int verificador(char *src_carros, char *src_movimento){
 
     while(!feof(entrada)){  ///Leitura dos veículos
         fscanf(entrada,"%c %d %c X%dY%d\n",&nome,&id,&axis,&coodx,&coody);
-        insert_veiculo(estac,nome,id,axis,coodx,coody); //Insere todos os carros que são lidos de forma genuína, sem colisão contra paredes ou veículos.
+        inserir_veiculo(estac,nome,id,axis,coodx,coody); //Insere todos os carros que são lidos de forma genuína, sem colisão contra paredes ou veículos.
     }
     while(!feof(movimnt)){
         fscanf(movimnt,"%c %c %d\n",&nome,&axis,&id);
-        if(colider(estac,verifyCar(nome),axis,id)){
+        if(colisao(estac,verifica_carro(nome),axis,id)){
             printf("Não pode realizar os conjuntos de manobras!\n");
             return 0;
         }
         else{
-            mvCar_estac(estac,verifyCar(nome),axis,id);
+            move_carro_estac(estac,verifica_carro(nome),axis,id);
         }
     }
-    id = verifyCar('Z');
+    id = verifica_carro('Z');
     if(saveCar[id].eixo == 'X' && saveCar[id].x == 4 && saveCar[id].y == 2 && saveCar[id].id == 2){
         printf("Manobras Validas!\n");
     }else{
@@ -287,16 +287,16 @@ int heuristica(char input[100]){
         return 0;
     }
 
-	zera_mat(estac);
+	zerar_matriz(estac);
 
     /*Leitura do arquivo*/
 	while(!feof(entrada)){
 		fscanf(entrada,"%c %d %c X%dY%d\n",&nome,&id,&axis,&coodx,&coody);
         /*Insere os veiculos ja sabendo que eles nao colidem com a parede*/
-		insert_veiculo(estac,nome,id,axis,coodx,coody);
+		inserir_veiculo(estac,nome,id,axis,coodx,coody);
     }
 
-    id = verifyCar('Z');
+    id = verifica_carro('Z');
 
     if(!(saveCar[id].eixo == 'X') || !(saveCar[id].id == 2)){
         fclose(saida);
@@ -315,29 +315,29 @@ int heuristica(char input[100]){
             sentido = 1 - sentido;
         }
 
-        if(!colider(estac,id,'X',1) && coodx == 0){
+        if(!colisao(estac,id,'X',1) && coodx == 0){
             fprintf(saida,"Z X 1\n");
-            mvCar_estac(estac,id,'X',1);
+            move_carro_estac(estac,id,'X',1);
             continue;
         }
         coodx = 0;
 
-        if(!colider(estac,id,'Y',1) && (saveCar[id].y >0) && sentido == 1){
+        if(!colisao(estac,id,'Y',1) && (saveCar[id].y >0) && sentido == 1){
             fprintf(saida,"Z Y 1\n");
-            mvCar_estac(estac,id,'Y',1);
+            move_carro_estac(estac,id,'Y',1);
             continue;
         }
 
-        if(!colider(estac,id,'Y',-1) && (saveCar[id].y <5) && sentido == 0){
+        if(!colisao(estac,id,'Y',-1) && (saveCar[id].y <5) && sentido == 0){
             fprintf(saida,"Z Y -1\n");
-            mvCar_estac(estac,id,'Y',-1);
+            move_carro_estac(estac,id,'Y',-1);
             continue;
         }
 
-        if(!colider(estac,id,'X',-1)){
+        if(!colisao(estac,id,'X',-1)){
             coodx = 1;
             fprintf(saida,"Z X -1\n");
-            mvCar_estac(estac,id,'X',-1);
+            move_carro_estac(estac,id,'X',-1);
         }
     }
     
@@ -354,14 +354,14 @@ return 0;
 }
 
 /*------------Backtrack--------------*/
-void zera_vet(int vet[], int tam, int valor){
+void zera_vetor(int vet[], int tam, int valor){
     int i;
     for(i = 0; i < tam; i++){
         vet[i] = valor;
     }
 }
 
-int geraPassoIt(char estac[6][6]){
+int gera_passo(char estac[6][6]){
     int i,j, contador = 0;
     /*Quantidade de moviemntos * quantidade de veiculos = chave de contagem*/
     int lim = 4*qnt;
@@ -375,10 +375,10 @@ int geraPassoIt(char estac[6][6]){
         savCar[j] = saveCar[j];
     }
 
-    zera_vet(gerador,limite*qnt,-1);
+    zera_vetor(gerador,limite*qnt,-1);
 
     while(contador < limite*qnt ){
-        if(saveCar[verifyCar('Z')].x == 4 && saveCar[verifyCar('Z')].y == 2){
+        if(saveCar[verifica_carro('Z')].x == 4 && saveCar[verifica_carro('Z')].y == 2){
             FILE *movimnt = fopen("movimentos.txt","w");
 
             for(i = 0; i < limite*qnt && gerador[i] != -1;i++){
@@ -400,7 +400,7 @@ int geraPassoIt(char estac[6][6]){
             if(gerador[i] >= lim){gerador[i] =0; gerador[i+1]++;}
             if(gerador[i] == lim-1){contador++;}
         }
-        zera_vet(limCar,qnt,0);
+        zera_vetor(limCar,qnt,0);
 
         /*Faz compia da matriz*/
         for(j = 0; j < 36; j++){
@@ -416,19 +416,19 @@ int geraPassoIt(char estac[6][6]){
             /*Se ultrapassar o limite de movimentos*/
             if(limCar[(int)gerador[i]/4] <= limite){
                 /*Pra cima*/
-                if(gerador[i]%4 == 0 && !colider(auxEstac,gerador[i]/4,'Y',1)){
-                    mvCar_estac(auxEstac,(int)gerador[i]/4,'Y',1);
+                if(gerador[i]%4 == 0 && !colisao(auxEstac,gerador[i]/4,'Y',1)){
+                    move_carro_estac(auxEstac,(int)gerador[i]/4,'Y',1);
                 }
                 /*Pra direita*/
-                if(gerador[i]%4 == 1 && !colider(auxEstac,(int)gerador[i]/4,'X',1)){
-                    mvCar_estac(auxEstac,(int)gerador[i]/4,'X',1);
+                if(gerador[i]%4 == 1 && !colisao(auxEstac,(int)gerador[i]/4,'X',1)){
+                    move_carro_estac(auxEstac,(int)gerador[i]/4,'X',1);
                 }
                 /*Pra baixo*/
-                if(gerador[i]%4 == 2 && !colider(auxEstac,(int)gerador[i]/4,'Y',-1)){
-                    mvCar_estac(auxEstac,(int)gerador[i]/4,'Y',-1);
+                if(gerador[i]%4 == 2 && !colisao(auxEstac,(int)gerador[i]/4,'Y',-1)){
+                    move_carro_estac(auxEstac,(int)gerador[i]/4,'Y',-1);
                 }/*Pra esquerda*/
-                if(gerador[i]%4 == 3 && !colider(auxEstac,(int)gerador[i]/4,'X',-1)){
-                    mvCar_estac(auxEstac,(int)gerador[i]/4,'X',-1);
+                if(gerador[i]%4 == 3 && !colisao(auxEstac,(int)gerador[i]/4,'X',-1)){
+                    move_carro_estac(auxEstac,(int)gerador[i]/4,'X',-1);
                 }
             }
         }
@@ -453,16 +453,16 @@ void backtrack(char input[100]){
         return;
     }
 
-	zera_mat(estac);
+	zerar_matriz(estac);
 
     /*Leitura de veiculos*/
 	while(!feof(entrada)){
 		fscanf(entrada,"%c %d %c X%dY%d\n",&nome,&id,&axis,&coodx,&coody);
         /*Ja insere sem nenhum carro batendo na parede*/
-		insert_veiculo(estac,nome,id,axis,coodx,coody);
+		inserir_veiculo(estac,nome,id,axis,coodx,coody);
     }
 
-    if(!geraPassoIt(estac)){
+    if(!gera_passo(estac)){
         printf("Não teve solução!\n");
     }
     fclose(entrada);
