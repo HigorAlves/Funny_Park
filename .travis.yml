@@ -1,0 +1,9 @@
+language: c
+compiler:
+ - gcc
+notifications:
+  email: false
+script:
+  - clear
+  - make
+  - ./tp2 -v entrada.txt -m manobras.txt -V
