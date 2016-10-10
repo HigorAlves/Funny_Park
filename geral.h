@@ -1,10 +1,10 @@
 /*Bibliotoecas*/
+#include <sys/resource.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/resource.h>
-#include <sys/time.h>
 /*---------------------*/
 
 /*Defines*/
@@ -18,13 +18,13 @@
 typedef struct s_posCar{
     char nome;
     char eixo;
-    int id;
+    int tipo;
     int x;
     int y;
 } posCar;
 
 typedef struct s_passos{
-    int id;
+    int tipo;
     /*Direção usando os pontos cardeais*/
     char direcao;
     char eixo;
@@ -50,10 +50,10 @@ int gera_passo(char estac[6][6]);
 void backtrack(char entrada[100]);
 
 int verifica_carro(char nome);
-void adiciona_carro(char nome, int id, char eixo, int x, int y);
-void inserir_veiculo(char matriz[6][6],char nome, int id, char eixo, int x, int y);
+void adiciona_carro(char nome, int tipo, char eixo, int x, int y);
+void inserir_veiculo(char matriz[6][6],char nome, int tipo, char eixo, int x, int y);
 void zerar_matriz(char mat[6][6]);
-void remove_veiculo_estac(char mat[6][6],int id);
-void move_carro_estac(char mat[6][6],int id, char axis, int mvt);
-int colisao(char mat[6][6],int id, char axis, int moviment);
+void remove_veiculo_estac(char mat[6][6],int tipo);
+void move_carro_estac(char mat[6][6],int tipo, char axis, int mvt);
+int colisao(char mat[6][6],int tipo, char axis, int moviment);
 int verificador(char *src_carros, char *src_movimento);

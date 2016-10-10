@@ -1,7 +1,7 @@
 #include "geral.h"
 
 int main(int argc, char **argv){
-    int v = 0, b = 0, h = 0, i,qnt = 0;
+    int v = 0, b = 0, h = 0, i,quantidade = 0;
 
     char *veiculo = (char*)calloc(sizeof(char),100);
     char *movimnt = (char*)calloc(sizeof(char),100);
@@ -11,15 +11,15 @@ int main(int argc, char **argv){
     flag(argc,argv,veiculo,movimnt,&h,&b,&v);
 
     if(v == 1){
-        qnt = 0;
+        quantidade = 0;
         verificador(veiculo,movimnt);
     }
     if(b == 1){
-        qnt = 0;
+        quantidade = 0;
         backtrack(veiculo);
     }
     if(h == 1){
-        qnt = 0;
+        quantidade = 0;
         heuristica(veiculo);
     }
 
